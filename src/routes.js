@@ -5,9 +5,11 @@ const multerConfig = require('./config/multer');
 
 routes.post('/', multer(multerConfig).single('file'), (req, res) => {
     var spawn = require('child_process').spawn;
-    var ls = spawn('cmd.exe', ['C:\\Users\\higor\\Desktop\\backend-data-analytics\\launch.bat']);
-    
+    var ls = spawn('C:/Users/higor/Desktop/backend-data-analytics/launch.bat');
+    var dataString = '';
+
     ls.stdout.on('data', function (data) {
+        dataString += data.toString();
         console.log('stdout: ' + data);
     });
 
@@ -17,15 +19,14 @@ routes.post('/', multer(multerConfig).single('file'), (req, res) => {
 
     ls.on('exit', function (code) {
         console.log('child process exited with code ' + code);
+        res.json({dataString});
     });
 
-
-
     /*
+   //"%OSGEO4W_ROOT%"\apps\Python37\python "C:\Users\higor\Desktop\backend-data-analytics\tmp\script-qgis.py"
     var spawn = require('child_process').spawn,
     py = spawn('C:/Program Files/QGIS 3.18/apps/Python37/python', ['tmp/script-qgis.py']),
     dataString = '';
-    spawn('launch.bat', [])
 
     py.stdout.on('data', function(data){
         dataString += data.toString();
@@ -35,7 +36,7 @@ routes.post('/', multer(multerConfig).single('file'), (req, res) => {
         console.log('aqui', dataString);
     });
 */
-    res.json({a: 'sdsad'});
+    
 });
 
 module.exports = routes

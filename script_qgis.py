@@ -1,8 +1,7 @@
 from qgis.core import *
-print('fsdfds')
 
 # supply path to qgis install location
-QgsApplication.setPrefixPath("C:\Program Files\QGIS 3.18", True)
+QgsApplication.setPrefixPath("/path/to/qgis/installation", True)
 
 # create a reference to the QgsApplication
 # setting the second argument to True enables the GUI, which we need to do
@@ -17,4 +16,3 @@ qgs.initQgis()
 # When your script is complete, call exitQgis() to remove the provider and
 # layer registries from memory
 qgs.exitQgis()
-
